@@ -53,23 +53,20 @@ class Game():
         running = True
         while running:
             self.screen.fill((0, 0, 0)) #resets screen to blank
-            pressed = pygame.key.get_pressed()
+            
             # event handling, gets all event from the event queue
             for event in pygame.event.get():
                 print(event)
-                reset = 1
+                
                 # only do something if the event is of type QUIT
                 if event.type == pygame.QUIT:
                     running = False
 
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RIGHT and reset == 1:
-                        player.x += 5
-                        print(player.x)
-                    elif event.key == pygame.K_LEFT and reset == 1:
-                        player.x -= 5
-                    reset = 0
-
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RIGHT]:
+                player.x +=1
+            if keys[pygame.K_LEFT]:
+                player.x -=1
 
             #aliens draw loop
             for alien in aliens:
