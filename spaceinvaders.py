@@ -11,7 +11,7 @@ class Game():
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((width, height))
-
+        
         #details
         pygame.display.set_caption("Space Invaders")
         icon = pygame.image.load('images/ship.png')
@@ -20,10 +20,15 @@ class Game():
         self.clock = pygame.time.Clock()
         self.clock.tick(60)
         #background = pygame.image.load('background.png')
+
+        gen = EnemyGenerator(self)  
+        self.aliens = [] #aliens list will auto generate later
         
-        aliens = [] #aliens list will auto generate later
+        gen.spawn()
+
+        
         alien = Enemy(self,30,30)
-        aliens.append(alien)
+        self.aliens.append(alien)
 
 
         player = Player(self)
@@ -48,7 +53,7 @@ class Game():
                 player.x -=1
 
             #aliens draw loop
-            for alien in aliens:
+            for alien in self.aliens:
                 alien.draw()
             
             #player draw loop
@@ -60,7 +65,7 @@ class Game():
 class Player():
     def __init__(self,game):
         self.game = game
-        self.lives=3
+        self.lives = 3
         self.x = self.game.width/2 - 13
         self.y = self.game.height - 25
 
@@ -98,10 +103,18 @@ class Enemy():
                 self.direction = 1
             self.y += 30
 
-class Generator():
-    def __init__(self,game):
+class EnemyGenerator():
+    def __init__(self,game,difficulty=1):
         self.x,self.y = (30,30)
+        self.difficulty = difficulty
         self.game = game
+    def spawn(self):
+        x = self.x + random.randint(30,self.game.width)
+        y = self.y
+        
+        self.game.aliens.append(Enemy(self.game,x,y))
+
+    
     
 class Rocket():
     def __init__(self,x,y):
