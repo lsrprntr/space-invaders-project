@@ -21,10 +21,11 @@ class Game():
         self.clock.tick(60)
         #background = pygame.image.load('background.png')
 
-        gen = EnemyGenerator(self)  
         self.aliens = [] #aliens list will auto generate later
-        
-        gen.spawn()
+        self.rockets = [] #rocket list
+
+        gen = EnemyGenerator(self)  
+        gen.spawn(10)
 
         
         alien = Enemy(self,30,30)
@@ -44,13 +45,17 @@ class Game():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    self.rockets.append(Rocket(self,player.x,player.y))
+
 
             #player movement
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RIGHT]:
-                player.x +=1
+                player.x +=2
             if keys[pygame.K_LEFT]:
-                player.x -=1
+                player.x -=2
+            
 
             #aliens draw loop
             for alien in self.aliens:
@@ -58,6 +63,9 @@ class Game():
             
             #player draw loop
             player.draw()
+
+            for rocket in self.rockets:
+                rocket.draw()
                 
             #UPDATE SCREEN   
             pygame.display.flip()
@@ -75,7 +83,6 @@ class Player():
                          pygame.Rect(self.x, self.y, 25, 25))
     
     def collisioncheck(self):
-        
         self.lives -= 1
 
         
@@ -104,22 +111,32 @@ class Enemy():
             self.y += 30
 
 class EnemyGenerator():
-    def __init__(self,game,difficulty=1):
+
+    def __init__(self,game):
         self.x,self.y = (30,30)
-        self.difficulty = difficulty
         self.game = game
-    def spawn(self):
-        x = self.x + random.randint(30,self.game.width)
-        y = self.y
-        
-        self.game.aliens.append(Enemy(self.game,x,y))
+
+    def spawn(self,number = 1, row = 0):
+        for a in range(number):
+            x = self.x + random.randint(30,self.game.width)
+            y = self.y + 30 * row
+            self.game.aliens.append(Enemy(self.game,x,y))
 
     
     
 class Rocket():
-    def __init__(self,x,y):
-        self.x = x
-        self.y = y   
+    def __init__(self,game,x,y):
+        self.x = x + 12
+        self.y = y - 8
+        self.game = game
+    def draw(self):
+        pygame.draw.rect(self.game.screen,
+                         (255,0,0), #RGB color
+                         pygame.Rect(self.x,self.y,3,8))
+        self.y -= 2
+        if self.y < 0:
+            self.game.rockets.remove(self)
+
 
 
 if __name__ == '__main__':
