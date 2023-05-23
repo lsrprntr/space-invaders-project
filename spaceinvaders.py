@@ -45,9 +45,9 @@ class Game():
         alien = Enemy(self,30,30)
         aliens.append(alien)
 
-        players = []
+        
         player = Player(self)
-        players.append(player)
+        
 
         # define a variable to control the main loop
         running = True
@@ -56,8 +56,6 @@ class Game():
             
             # event handling, gets all event from the event queue
             for event in pygame.event.get():
-                print(event)
-                
                 # only do something if the event is of type QUIT
                 if event.type == pygame.QUIT:
                     running = False
@@ -74,8 +72,7 @@ class Game():
                 alien.draw()
             
             #player draw loop
-            for ship in players:
-                ship.draw()
+            player.draw()
                 
 
             #update screen    
@@ -106,16 +103,15 @@ class Enemy():
                 self.direction = 1
             self.y += 30
 
+class Generator():
+    def __init__(self,game):
+        self.x,self.y = (30,30)
+        self.game = game
+    
+        
 
-    
-    def fire():
-        return
-    def death():
-        return
-    def checkhit():
-        return
-    
 
 if __name__ == '__main__':
     game = Game(800, 600)
+
 #start = Game(800,600)

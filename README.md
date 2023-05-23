@@ -12,4 +12,4 @@ Self-imposed project to create a space-invader-like game which features the foll
 - Increasing difficulty
 - Upgrade items (if possible)
 
-Most of the game is done from scratch with most of the assets taken from the pygame module.
+Most of the game is done from scratch with most of the shapes drawn by the pygame module.
