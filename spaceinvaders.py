@@ -80,7 +80,7 @@ class Player():
     def draw(self):
         pygame.draw.rect(self.game.screen,
                          (0, 0, 255),
-                         pygame.Rect(self.x, self.y, 25, 25))
+                         pygame.Rect(self.x, self.y, 15, 15))
     
     def collisioncheck(self):
         self.lives -= 1
@@ -126,9 +126,10 @@ class EnemyGenerator():
     
 class Rocket():
     def __init__(self,game,x,y):
-        self.x = x + 12
+        self.x = x + 6
         self.y = y - 8
         self.game = game
+
     def draw(self):
         pygame.draw.rect(self.game.screen,
                          (255,0,0), #RGB color
