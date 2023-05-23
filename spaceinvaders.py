@@ -35,9 +35,8 @@ class Game():
             #BLANK SCREEN
             self.screen.fill((0, 0, 0)) 
             
-            # event handling, gets all event from the event queue
+            #QUIT event
             for event in pygame.event.get():
-                # only do something if the event is of type QUIT
                 if event.type == pygame.QUIT:
                     running = False
 
@@ -55,7 +54,6 @@ class Game():
             #player draw loop
             player.draw()
                 
-
             #UPDATE SCREEN   
             pygame.display.flip()
 
@@ -70,6 +68,11 @@ class Player():
         pygame.draw.rect(self.game.screen,
                          (0, 0, 255),
                          pygame.Rect(self.x, self.y, 25, 25))
+    
+    def collisioncheck(self):
+        
+        self.lives -= 1
+
         
 class Enemy(): 
     def __init__(self,game,x,y):
