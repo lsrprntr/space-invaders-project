@@ -88,12 +88,12 @@ class Enemy():
             self.x += 1
         else:
             self.x -= 1
-        
         if self.x > self.game.width - self.size or self.x < 0:
             if self.direction == 1:
                 self.direction = 0
             else:
                 self.direction = 1
+            self.y += 30
 
 
     
