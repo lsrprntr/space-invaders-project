@@ -43,6 +43,7 @@ class Game():
             
             #QUIT event
             for event in pygame.event.get():
+                print(event)
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
