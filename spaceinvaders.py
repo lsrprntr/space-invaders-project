@@ -17,8 +17,9 @@ class player():
     def fire():
         return
 
-class enemy():
+class enemy(player): 
     def __init__(self):
+        self.lives = 1
         return
     def fire():
         return
@@ -26,6 +27,7 @@ class enemy():
         return
     def checkhit():
         return
+    
 
 class game():
     screen = None
@@ -35,4 +37,7 @@ class game():
         pygame.init()
         self.width = width
         self.height = height
-        
+        self.screen = pygame.display.set_mode((width, height))
+
+
+start = game(800,600)
