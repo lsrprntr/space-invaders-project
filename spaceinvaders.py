@@ -62,6 +62,7 @@ class Game():
                 if event.type == pygame.QUIT:
                     running = False
 
+            #player movement
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RIGHT]:
                 player.x +=1
