@@ -1,58 +1,39 @@
 import pygame
 import random
-import math
-
-class Player():
-    def __init__(self,game):
-        self.game = game
-        self.lives=3
-        self.x = self.game.width/2 - 13
-        self.y = self.game.height - 25
-
-    def draw(self):
-        pygame.draw.rect(self.game.screen,
-                         (0, 0, 255),
-                         pygame.Rect(self.x, self.y, 25, 25))
-        
-
-    
-class Rocket():
-    def __init__(self,x,y):
-        self.x = x
-        self.y = y
-    
 
 class Game():
 
     def __init__(self,width,height):
         #initializes the pygame engine
         pygame.init() 
+
         #screen size
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((width, height))
+
         #details
         pygame.display.set_caption("Space Invaders")
         icon = pygame.image.load('images/ship.png')
         pygame.display.set_icon(icon)
-        #background = pygame.image.load('background.png') #background if needed, default black empty
-
         self.screen.fill((0,0,0))
         self.clock = pygame.time.Clock()
         self.clock.tick(60)
+        #background = pygame.image.load('background.png')
         
-        aliens = [] #aliens list will generate later
+        aliens = [] #aliens list will auto generate later
         alien = Enemy(self,30,30)
         aliens.append(alien)
 
-        
+
         player = Player(self)
         
 
-        # define a variable to control the main loop
+        # MAIN LOOP VARIABLE
         running = True
         while running:
-            self.screen.fill((0, 0, 0)) #resets screen to blank
+            #BLANK SCREEN
+            self.screen.fill((0, 0, 0)) 
             
             # event handling, gets all event from the event queue
             for event in pygame.event.get():
@@ -75,10 +56,21 @@ class Game():
             player.draw()
                 
 
-            #update screen    
+            #UPDATE SCREEN   
             pygame.display.flip()
 
+class Player():
+    def __init__(self,game):
+        self.game = game
+        self.lives=3
+        self.x = self.game.width/2 - 13
+        self.y = self.game.height - 25
 
+    def draw(self):
+        pygame.draw.rect(self.game.screen,
+                         (0, 0, 255),
+                         pygame.Rect(self.x, self.y, 25, 25))
+        
 class Enemy(): 
     def __init__(self,game,x,y):
         self.x = x
@@ -108,7 +100,10 @@ class Generator():
         self.x,self.y = (30,30)
         self.game = game
     
-        
+class Rocket():
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y   
 
 
 if __name__ == '__main__':
