@@ -21,11 +21,12 @@ class Game():
         self.clock.tick(60)
         #background = pygame.image.load('background.png')
 
-        self.aliens = [] #aliens list will auto generate later
+        self.aliens = [] #aliens list
         self.rockets = [] #rocket list
 
         self.difficulty = difficulty
         print("Difficulty: ", difficulty)
+        #Alien generator
         gen = EnemyGenerator(self)
         for i in range(difficulty):
             gen.spawn(10,i)
@@ -45,7 +46,7 @@ class Game():
                     pygame.quit()
                     quit()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    if len(self.rockets)<5:
+                    if len(self.rockets)<5: #ROCKET LIMIT
                         self.rockets.append(Rocket(self,player.x,player.y))
             #WINNING EVENT INCREASE DIFFICULTY
             if len(self.aliens) == 0:
@@ -116,9 +117,9 @@ class Player():
             self.x = 0
             
     def collisioncheck(self,game):
-        for alien in game.aliens:
-            if (alien.x <= self.x + self.size and
-                alien.x >= self.x - self.size and
+        for alien in game.aliens: #added alien speed as they get too fast to register hits
+            if (alien.x <= self.x + self.size + alien.speed and
+                alien.x >= self.x - self.size - alien.speed and
                 alien.y >= self.y - self.size):
                 #self.lives -= 1
                 return True
@@ -149,7 +150,7 @@ class Enemy():
             else:
                 self.direction = 1
             self.y += 30
-            self.speed *= 1.1
+            self.speed *= 1.15
 
     def checkhit(self,game):
         for rocket in game.rockets:
