@@ -4,12 +4,16 @@
 - [Python 3](https://wiki.python.org/moin/BeginnersGuide/Download)
 - [Pygame](https://www.pygame.org/wiki/GettingStarted)
 
+After installing above, run spaceinvaders.py via python3.
+
 ### Description
 
 Self-imposed project to create a space-invader-like game which features the following (but not all):
 - Collision detection
 - Increasing difficulty
 - Enemy generator and spawner
+
+![](images/scr1.png)
 
 ### Notes
 
