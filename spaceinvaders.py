@@ -45,7 +45,8 @@ class Game():
                     pygame.quit()
                     quit()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    self.rockets.append(Rocket(self,player.x,player.y))
+                    if len(self.rockets)<5:
+                        self.rockets.append(Rocket(self,player.x,player.y))
             #WINNING EVENT INCREASE DIFFICULTY
             if len(self.aliens) == 0:
                 self.displaytext("YOU WON!")
@@ -66,6 +67,7 @@ class Game():
             #player draw loop
             player.draw()
             if player.collisioncheck(self):
+                print("HIT")
                 self.displaytext("YOU DIED!")
                 self.restart()
             
@@ -115,14 +117,14 @@ class Player():
             
     def collisioncheck(self,game):
         for alien in game.aliens:
-            if (alien.x < self.x + self.size and
-                alien.x > self.x - self.size and
-                alien.y < self.y + self.size and
-                alien.y > self.y - self.size):
-                self.lives -= 1
+            if (alien.x <= self.x + self.size and
+                alien.x >= self.x - self.size and
+                alien.y >= self.y - self.size):
+                #self.lives -= 1
                 return True
             else:
                 return False
+            
             
 class Enemy(): 
     def __init__(self,game,x,y):
@@ -147,7 +149,7 @@ class Enemy():
             else:
                 self.direction = 1
             self.y += 30
-            self.speed *= 1.17
+            self.speed *= 1.1
 
     def checkhit(self,game):
         for rocket in game.rockets:
@@ -183,6 +185,7 @@ class Rocket():
         self.y -= 2
         if self.y < 0:
             self.game.rockets.remove(self)
+
 
 if __name__ == '__main__':
     game = Game(800, 600)
