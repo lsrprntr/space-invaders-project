@@ -4,10 +4,10 @@
 - [Python 3](https://wiki.python.org/moin/BeginnersGuide/Download)
 - [Pygame](https://www.pygame.org/wiki/GettingStarted)
 
-After installing above, run spaceinvaders.py via python3.
-Move player with left and right arrow keys.
-Fire with spacebar.
-When you win or lose, restart with any key press.
+1. After installing above, run spaceinvaders.py via python3.
+2. Move player with left and right arrow keys.
+3. Fire with spacebar.
+4. When you win or lose, restart with any key press.
 
 ### Description
 
