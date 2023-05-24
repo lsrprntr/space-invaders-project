@@ -5,6 +5,9 @@
 - [Pygame](https://www.pygame.org/wiki/GettingStarted)
 
 After installing above, run spaceinvaders.py via python3.
+Move player with left and right arrow keys.
+Fire with spacebar.
+When you win or lose, restart with any key press.
 
 ### Description
 
