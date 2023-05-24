@@ -96,9 +96,6 @@ class Game():
                 if event.type == pygame.KEYDOWN:
                     game = Game(800,600,difficulty)
                     
-
-
-
 class Player():
     def __init__(self,game):
         self.game = game
