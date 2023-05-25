@@ -178,12 +178,13 @@ class Rocket():
         self.x = x + 6
         self.y = y - 8
         self.game = game
+        self.speed = 2 #rocket speed
 
     def draw(self):
         pygame.draw.rect(self.game.screen,
                          (255,0,0), #RGB color
                          pygame.Rect(self.x,self.y,3,8))
-        self.y -= 2
+        self.y -= self.speed
         if self.y < 0:
             self.game.rockets.remove(self)
 
