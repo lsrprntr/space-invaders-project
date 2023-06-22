@@ -188,7 +188,7 @@ class Rocket():
         if self.y < 0:
             self.game.rockets.remove(self)
 
-
+# to only run the code when the program is run directly by the Python interpreter. 
 if __name__ == '__main__':
     game = Game(800, 600)
 
