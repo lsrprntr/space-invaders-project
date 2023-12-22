@@ -37,6 +37,7 @@ class Game():
         # MAIN LOOP VARIABLE
         running = True
         while running:
+            self.clock.tick(60)
             #BLANK SCREEN
             self.screen.fill((0, 0, 0)) 
             #QUIT event
@@ -46,7 +47,7 @@ class Game():
                     pygame.quit()
                     quit()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    if len(self.rockets)<5: #ROCKET LIMIT
+                    if len(self.rockets) < 7 : #ROCKET LIMIT
                         self.rockets.append(Rocket(self,player.x,player.y))
             #WINNING EVENT INCREASE DIFFICULTY
             if len(self.aliens) == 0:
@@ -178,7 +179,7 @@ class Rocket():
         self.x = x + 6
         self.y = y - 8
         self.game = game
-        self.speed = 2 #rocket speed
+        self.speed = 4 #rocket speed
 
     def draw(self):
         pygame.draw.rect(self.game.screen,
