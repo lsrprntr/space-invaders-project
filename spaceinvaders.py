@@ -38,6 +38,7 @@ class Game():
         running = True
         while running:
             self.clock.tick(60)
+            
             #BLANK SCREEN
             self.screen.fill((0, 0, 0)) 
             #QUIT event
