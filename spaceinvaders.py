@@ -3,7 +3,7 @@ import random
 
 class Game():
 
-    def __init__(self,width,height,difficulty=1):
+    def __init__(self,width,height,difficulty=5):
         #initializes the pygame engine
         pygame.init() 
 
@@ -50,11 +50,13 @@ class Game():
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     if len(self.rockets) < 7 : #ROCKET LIMIT
                         self.rockets.append(Rocket(self,player.x,player.y))
+
             #WINNING EVENT INCREASE DIFFICULTY
             if len(self.aliens) == 0:
                 self.displaytext("YOU WON!")
                 self.difficulty += 1
                 self.restart(self.difficulty)
+
             #player movement
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RIGHT]:
@@ -66,23 +68,22 @@ class Game():
                 pygame.quit()
                 quit()
 
-            #aliens draw loop
-            for alien in self.aliens:
-                alien.draw()
-                alien.checkhit(self)
-            
+
             #player draw loop
             player.draw()
             if player.collisioncheck(self):
                 print("HIT")
                 self.displaytext("YOU DIED!")
                 self.restart()
+
+            #aliens draw loop
+            for alien in self.aliens:
+                alien.draw()
+                alien.checkhit(self)
             
             for rocket in self.rockets:
                 rocket.draw()
 
-        
-                
             #UPDATE SCREEN   
             pygame.display.flip()
     
@@ -111,30 +112,34 @@ class Player():
     def __init__(self,game):
         self.game = game
         self.lives = 3
-        self.x = self.game.width/2 - 13
+        self.x = self.game.width//2 - 13
         self.y = self.game.height - 25
         self.size = 15
 
     def draw(self):
         pygame.draw.rect(self.game.screen,
-                         (0, 0, 255),
+                         (0, 0, 255), #RGB color
                          pygame.Rect(self.x, self.y, self.size, self.size))
+        
+        # x coord of player is top left of rectangle
         if self.x > self.game.width - self.size:
             self.x = self.game.width - self.size
         if self.x < 0:
             self.x = 0
             
     def collisioncheck(self,game):
+
         for alien in game.aliens: #added alien speed as they get too fast to register hits
+            # if too many aliens then it will check slow
+            print(alien.y)
             if (alien.x <= self.x + self.size + alien.speed and
                 alien.x >= self.x - self.size - alien.speed and
-                alien.y >= self.y - self.size):
+                alien.y >=570):
                 #self.lives -= 1
                 return True
             else:
                 return False
-            
-            
+                        
 class Enemy(): 
     def __init__(self,game,x,y):
         self.x = x
@@ -143,23 +148,32 @@ class Enemy():
         self.direction = random.randint(0,1)
         self.size = 25
         self.speed = 1
-        self.increase = 1.3 #ENEMY SPEED INCREASE ON NEW ROW
+        self.increase = 5 #ENEMY SPEED INCREASE ON NEW ROW
         self.maxspeed = 25 
     
     def draw(self):
         pygame.draw.rect(self.game.screen,
                          (0,255,0), #RGB color
                          pygame.Rect(self.x,self.y,self.size,self.size))
-        if self.direction == 1:
+        
+        if self.direction == 1: # direction change
             self.x += self.speed
         else:
             self.x -= self.speed
+
         if self.x > self.game.width - self.size or self.x < 0:
             if self.direction == 1:
                 self.direction = 0
             else:
                 self.direction = 1
-            self.y += 30
+            self.y += 30 # ENEMY JUMPS TO NEW ROW
+            
+            if self.y >=570: # IF ON LAST ROW LOSS CONDITION
+                self.game.displaytext("YOU LOST!")
+                self.game.restart()
+
+
+            # MAX SPEED CHECK
             if self.speed * self.increase > self.maxspeed:
                 self.speed == self.maxspeed
             else:
@@ -173,7 +187,6 @@ class Enemy():
                 rocket.y > self.y ):
                 game.rockets.remove(rocket)
                 game.aliens.remove(self)
-
 
 class EnemyGenerator():
     def __init__(self,game):
