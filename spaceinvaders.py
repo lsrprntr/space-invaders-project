@@ -60,6 +60,10 @@ class Game():
                 player.x +=2
             if keys[pygame.K_LEFT]:
                 player.x -=2
+            if keys[pygame.K_ESCAPE]:
+                pygame.display.quit()
+                pygame.quit()
+                quit()
 
             #aliens draw loop
             for alien in self.aliens:
@@ -75,6 +79,8 @@ class Game():
             
             for rocket in self.rockets:
                 rocket.draw()
+
+        
                 
             #UPDATE SCREEN   
             pygame.display.flip()
