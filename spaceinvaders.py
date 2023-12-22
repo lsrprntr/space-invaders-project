@@ -38,7 +38,7 @@ class Game():
         running = True
         while running:
             self.clock.tick(60)
-            
+
             #BLANK SCREEN
             self.screen.fill((0, 0, 0)) 
             #QUIT event
@@ -143,6 +143,8 @@ class Enemy():
         self.direction = random.randint(0,1)
         self.size = 25
         self.speed = 1
+        self.increase = 1.2 #ENEMY SPEED INCREASE ON NEW ROW
+        self.maxspeed = 30 
     
     def draw(self):
         pygame.draw.rect(self.game.screen,
@@ -158,7 +160,10 @@ class Enemy():
             else:
                 self.direction = 1
             self.y += 30
-            self.speed *= 1.15
+            if self.speed * self.increase > self.maxspeed:
+                self.speed == self.maxspeed
+            else:
+                self.speed *= self.increase
 
     def checkhit(self,game):
         for rocket in game.rockets:
