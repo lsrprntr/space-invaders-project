@@ -3,7 +3,7 @@ import random
 
 class Game():
 
-    def __init__(self,width,height,difficulty=5):
+    def __init__(self,width,height,difficulty=1):
         #initializes the pygame engine
         pygame.init() 
 
@@ -148,7 +148,7 @@ class Enemy():
         self.direction = random.randint(0,1)
         self.size = 25
         self.speed = 1
-        self.increase = 5 #ENEMY SPEED INCREASE ON NEW ROW
+        self.increase = 1.26 #ENEMY SPEED INCREASE ON NEW ROW
         self.maxspeed = 25 
     
     def draw(self):
