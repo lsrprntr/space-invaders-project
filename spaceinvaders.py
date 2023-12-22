@@ -143,8 +143,8 @@ class Enemy():
         self.direction = random.randint(0,1)
         self.size = 25
         self.speed = 1
-        self.increase = 1.2 #ENEMY SPEED INCREASE ON NEW ROW
-        self.maxspeed = 30 
+        self.increase = 1.3 #ENEMY SPEED INCREASE ON NEW ROW
+        self.maxspeed = 25 
     
     def draw(self):
         pygame.draw.rect(self.game.screen,
